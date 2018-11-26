@@ -5,8 +5,13 @@ $(document).ready(function () {
   function validateForm () {
     var usernameRegex = /[^\w\.]/g
     var username = document.form['registerForm']['username'].value
+    var email = ocument.form['registerForm']['ea=mail'].value
     var pw1 = document.forms['registerForm']['password'].value
     var pw2 = document.forms['registerForm']['confirmPassword'].value
+
+    document.form['registerForm']['username'].value = username.toLowerCase()
+    document.form['registerForm']['email'].value = email.toLowerCase()
+
     if (username.search(usernameRegex)) {
       alert('Usernames may only contain letters, numbers, and periods')
       return false

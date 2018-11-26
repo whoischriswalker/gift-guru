@@ -1,6 +1,7 @@
 var express = require('express')
 var session = require('express-session')
-var cookieParser = require('cookie-parser')
+var MemoryStore = require('memorystore')(session)
+// var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var path = require('path')
 var passport = require('passport')
@@ -29,14 +30,15 @@ app.set('view engine', 'mst')
 
 app.use(logger('dev'))
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(cookieParser())
+// app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(session({
   secret: 'hella-top-secret',
-  cookie: { maxAge: 60000 },
-  resave: false,
-  saveUninitialized: false
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  })
 }))
 
 app.use(passport.initialize())
