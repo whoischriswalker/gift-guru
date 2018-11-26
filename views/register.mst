@@ -1,0 +1,33 @@
+{{>header}}
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h1 class="display-4 m-b-2">Register</h1>
+      <!-- register form-->
+      <form method="POST" action="/auth/register" name="registerForm" onsubmit="return validateForm()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input class="form-control" id="username" type="text" placeholder="Username" name="username" required="required"/>
+        </div>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input class="form-control" id="name" type="text" placeholder="First and Last Name" name="name" required="required"/>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input class="form-control" id="email" type="email" placeholder="name@email.com" name="email" required="required"/>
+        </div>
+        <div class="form-group">
+          <label for="pw">Password</label>
+          <input class="form-control" id="pw" type="password" name="password" required="required"/>
+        </div>
+        <div class="form-group">
+          <label for="pw2">Confirm Password</label>
+          <input class="form-control" id="pw2" type="password" name="confirmPassword" required="required"/>
+        </div>
+        <button class="btn btn-primary" type="submit">Let's Do It</button>
+      </form><br/><a href="/login"><span>Already registered? Click here to login!</span></a>
+    </div>
+  </div>
+</main>
+{{>footer}}

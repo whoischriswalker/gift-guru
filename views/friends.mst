@@ -1,0 +1,56 @@
+{{>header}}
+<main role="main" class="container">
+  <div class="row align-items-center">
+  <div class="col-md-10 text-nowrap">
+    <h1 class="col-md-6 display-4 m-b-4">Friends</h1>
+  </div>
+  <div class="col-md-4">
+    {{#message}}
+    <div class="alert alert-info">{{message}}</div>
+    {{/message}}
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-12" id="addFriendForm">
+    <form method="POST" action="/friends/add/{{userId}}">
+    <div class="form-row align-items-center">
+      <div class="col-sm-12 col-md-3 mr-md-1 my-2">
+        <input type="text" class="form-control typeahead" data-provide="typeahead" autocomplete="off">
+      </div>
+      <div class="col-auto my-2">
+       <button class="btn btn-primary btn-block" type="submit">Search</button>
+      </div>
+    </div>
+    </form>
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    {{#friends}}
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="media">
+          <a style="color: black !important; text-decoration: none;" href="/friends/wishes/{{userId}}">
+            <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/gift-64.png" alt="...">
+          </a>
+          <div class="media-body align-self-center col-md-11" style="flex: auto;">
+            <a style="color: black !important; text-decoration: none;" href="/friends/wishes/{{userId}}">
+              <h5 class="mt-0">{{name}}</h5>
+              <h6 class="mb-0">{{username}}</h6>
+            </a>
+          </div>
+<!--          <div class="align-self-center col-md-1" style="flex: 1;">
+            <a style="color: black !important; text-decoration: none;" href="/item/remove/{{wishId}}">
+              <i class="far fa-trash-alt fa-fw fa-lg"></i>
+            </a>
+          </div> -->
+        </div>
+      </li>
+    </ul>
+    {{/friends}}
+  </div>        
+</div>
+</main>
+{{>footer}}

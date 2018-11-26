@@ -1,0 +1,28 @@
+{{>header}}
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h1 class="display-4 m-b-10">Login</h1>
+      {{#message}}
+      <div class="alert alert-danger">{{message}}</div>
+      {{/message}}
+      <!-- login form-->
+      <form method="POST" action="/auth/login">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input class="form-control" id="username" type="text" name="username" required="required"/>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input class="form-control" id="password" type="password" name="password" required="required"/>
+        </div>
+        <button class="btn btn-primary" type="submit">Login</button>
+      </form>
+      <br/>
+      <a href="/register">
+        <span>Not yet registered? Click here to get started!</span>
+      </a>
+    </div>
+  </div>
+</main>
+{{>footer}}

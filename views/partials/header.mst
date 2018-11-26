@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Gift Guru</title>
+
+    <!-- Bootstrap core CSS & JS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+		<!-- Custom styles for this template-->
+		<link href="../../stylesheets/style.css" rel="stylesheet">
+  </head>
+	<body>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="/">
+          Gift 
+          <img src="../../images/guru-50.png" height="30" width="30" class="d-inline-block align-top">
+          Guru
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">My List<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/friends">Friends</a>
+            </li>
+<!--            <li class="nav-item active dropdown">
+              <a class="nav-link dropdown-toggle" href="/friends" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Friends</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown01">
+                <a class="dropdown-item" href="#">Friend 1</a>
+                <a class="dropdown-item" href="#">Friend 2</a>
+                <a class="dropdown-item" href="#">Friend 3</a>
+              </div>
+            </li> -->
+            <li class="nav-item active">
+            {{#user}}
+              <a class="nav-link" href="/auth/logout">Logout</a>
+            {{/user}}
+            {{^user}}
+              <a class="nav-link" href="/login">Login</a>
+            {{/user}}
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
