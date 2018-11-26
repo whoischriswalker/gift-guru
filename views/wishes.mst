@@ -27,8 +27,13 @@
               <h6 class="mb-0">${{price}}</h6>
             </div>
             <div class="align-self-center col-md-1" style="flex: 1;">
-              <a style="color: black !important; text-decoration: none;" href="/item/remove/{{wishId}}">
-                <i class="far fa-trash-alt fa-fw fa-lg"></i>
+              <a style="color: black !important; text-decoration: none;" href="/items/purchase/{{userId}}/{{wishId}}">
+                {{#purchaseStatus}}
+                <i class="far fa-check-circle fa-fw fa-lg"></i>
+                {{/purchaseStatus}}
+                {{^purchaseStatus}}
+                <i class="fas fa-shopping-cart fa-fw fa-lg"></i>
+                {{/purchaseStatus}}
               </a>
             </div>
           </div>

@@ -14,7 +14,7 @@ router.post('/add', isLoggedIn, (req, res) => {
 
   items.addWish(userId, itemData, mustHave, function (err, result) {
     if (err) throw err
-    req.flash('addItemMessage', result)
+    req.flash('itemMessage', result)
     res.redirect('/')
   })
 })
@@ -23,13 +23,27 @@ router.get('/remove/:wishId', isLoggedIn, (req, res) => {
   var wishId = req.params.wishId
   items.removeWish(wishId, function (err, result) {
     if (err) {
-      req.flash('removeItemMessage', result)
+      req.flash('itemMessage', result)
       res.redirect('/')
     }
     if (result) {
-      console.log(result)
-      req.flash('removeItemMessage', result)
+      req.flash('itemMessage', result)
       res.redirect('/')
+    }
+  })
+})
+
+router.get('/purchase/:userId/:wishId', isLoggedIn, (req, res) => {
+  var userId = req.params.userId
+  var wishId = req.params.wishId
+  items.purchaseWish(wishId, function (err, result) {
+    if (err) {
+      req.flash('friendsMessage', result)
+      res.redirect('/friends/wishes/' + userId)
+    }
+    if (result) {
+      req.flash('friendsMessage', result)
+      res.redirect('/friends/wishes/' + userId)
     }
   })
 })

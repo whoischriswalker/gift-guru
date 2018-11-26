@@ -35,6 +35,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(session({
   secret: 'hella-top-secret',
+  resave: false,
+  saveUninitialized: false,
   cookie: { maxAge: 86400000 },
   store: new MemoryStore({
     checkPeriod: 86400000 // prune expired entries every 24h

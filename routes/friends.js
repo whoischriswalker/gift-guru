@@ -32,7 +32,7 @@ router.post('/remove/:userId', isLoggedIn, (req, res) => {
     var pageData = {
       user: req.user,
       friends: result,
-      message: req.flash('addFriendMessage') || req.flash('removeFriendMessage')
+      message: req.flash('friendsMessage')
     }
     res.render('friends', pageData)
   })
@@ -44,7 +44,8 @@ router.get('/wishes/:userId', isLoggedIn, (req, res) => {
     if (err) throw err
     items.getWishList(userId, function (err, wishList) {
       if (err) throw err
-      res.render('wishes', { name: friendInfo.name, wishes: wishList })
+      var message = req.flash('friendsMessage')
+      res.render('wishes', { name: friendInfo.name, message: message, wishes: wishList })
     })
   })
 })
