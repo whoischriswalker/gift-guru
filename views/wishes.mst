@@ -1,15 +1,17 @@
 {{>header}}
 <main role="main" class="container">
-  <div class="row align-items-center">
-    <div class="col-md-10 text-nowrap">
-      <h1 class="col-md-6 display-4 m-b-4">{{name}}</h1>
-      <div class="col-md-4">
-        {{#message}}
-        <div class="alert alert-danger">{{message}}</div>
-        {{/message}}
-      </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="display-4 m-b-4" style="text-decoration: capitalize;">{{name}}</h1>
     </div>
-  </div>  
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      {{#message}}
+      <div class="alert alert-success">{{message}}</div>
+      {{/message}}
+    </div>
+  </div>
   <hr>
   <div class="row">
     <div class="col-md-12">
@@ -17,9 +19,16 @@
       <ul class="list-group">
         <li class="list-group-item">
           <div class="media">
+          {{#purchaseStatus}}
+            <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
+              <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/purchased-64.png" alt="...">
+            </a>
+          {{/purchaseStatus}}
+          {{^purchaseStatus}}
             <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
               <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/gift-64.png" alt="...">
             </a>
+          {{/purchaseStatus}}
             <div class="media-body align-self-center col-md-11" style="flex: auto;">
               <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
                 <h5 class="mt-0">{{desc}}</h5>
@@ -27,13 +36,13 @@
               <h6 class="mb-0">${{price}}</h6>
             </div>
             <div class="align-self-center col-md-1" style="flex: 1;">
+              {{#purchaseStatus}}
+              <i class="far fa-check-circle fa-fw fa-lg"></i>
+              {{/purchaseStatus}}
+              {{^purchaseStatus}}
               <a style="color: black !important; text-decoration: none;" href="/items/purchase/{{userId}}/{{wishId}}">
-                {{#purchaseStatus}}
-                <i class="far fa-check-circle fa-fw fa-lg"></i>
-                {{/purchaseStatus}}
-                {{^purchaseStatus}}
                 <i class="fas fa-shopping-cart fa-fw fa-lg"></i>
-                {{/purchaseStatus}}
+              {{/purchaseStatus}}
               </a>
             </div>
           </div>

@@ -37,7 +37,7 @@
           </a>
           <div class="media-body align-self-center col-md-11" style="flex: auto;">
             <a style="color: black !important; text-decoration: none;" href="/friends/wishes/{{userId}}">
-              <h5 class="mt-0">{{name}}</h5>
+              <h5 class="mt-0" style="text-decoration: capitalize;">{{name}}</h5>
               <h6 class="mb-0">{{username}}</h6>
             </a>
           </div>

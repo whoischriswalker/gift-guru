@@ -40,12 +40,13 @@ router.post('/remove/:userId', isLoggedIn, (req, res) => {
 
 router.get('/wishes/:userId', isLoggedIn, (req, res) => {
   var userId = req.params.userId
+  var user = req.user
   friends.getFriendInfo(userId, function (err, friendInfo) {
     if (err) throw err
     items.getWishList(userId, function (err, wishList) {
       if (err) throw err
       var message = req.flash('friendsMessage')
-      res.render('wishes', { name: friendInfo.name, message: message, wishes: wishList })
+      res.render('wishes', { name: friendInfo.name, message: message, wishes: wishList, user: user })
     })
   })
 })
