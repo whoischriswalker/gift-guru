@@ -7,9 +7,9 @@ module.exports = {
   getFriendsList: function (userId, done) {
     //  var friendsListQuery = 'SELECT userId, name FROM users INNER JOIN friends ON users.userId = friends.subscriberId WHERE friends.publisherId = ? ORDER BY ?? ASC'
 
-    var friendsListQuery = 'SELECT users.userId, users.name, users.email, users.username FROM users ORDER BY name ASC'
+    var friendsListQuery = 'SELECT users.userId, users.name, users.email, users.username FROM users WHERE users.userId <> ? ORDER BY name ASC'
 
-    pool.query(friendsListQuery, function (err, friends) {
+    pool.query(friendsListQuery, userId, function (err, friends) {
       return done(err, friends)
     })
   },
