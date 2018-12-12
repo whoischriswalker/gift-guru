@@ -2,7 +2,7 @@
 <main role="main" class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1 class="display-4 m-b-4" style="text-decoration: capitalize;">{{name}}</h1>
+      <h1 class="display-4 m-b-4" style="text-transform: capitalize;">{{name}}</h1>
     </div>
   </div>
   <div class="row">
