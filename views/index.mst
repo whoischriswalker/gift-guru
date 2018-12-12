@@ -53,9 +53,14 @@
     <ul class="list-group">
       <li class="list-group-item">
         <div class="media">
+          {{#url}}
           <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
             <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/gift-64.png" alt="...">
           </a>
+          {{/url}}
+          {{^url}}
+          <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/gift-64.png" alt="...">
+          {{/url}}
           <div class="media-body align-self-center col-md-11" style="flex: auto;">
             <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
               <h5 class="mt-0">{{desc}}</h5>
