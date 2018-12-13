@@ -40,9 +40,14 @@
             {{/url}}
           {{/purchaseStatus}}
             <div class="media-body align-self-center col-md-11" style="flex: auto;">
+          {{#url}}
               <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
                 <h5 class="mt-0">{{desc}}</h5>
               </a>
+          {{/url}}
+          {{^url}}
+                <h5 class="mt-0">{{desc}}</h5>
+          {{/url}}
               <h6 class="mb-0">${{price}}</h6>
             </div>
             <div class="align-self-center col-md-1" style="flex: 1;">
