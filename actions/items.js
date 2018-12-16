@@ -7,7 +7,7 @@ module.exports = {
   getWishList: function (userId, done) {
     var wishListQuery = 'SELECT items.desc, items.url, items.price, wishes.wishId, wishes.userId, IF(wishes.mustHave, TRUE, null) mustHave,  IF(wishes.purchaseStatus, TRUE, null) purchaseStatus, wishes.createDate FROM wishes INNER JOIN items ON wishes.itemId = items.itemId WHERE wishes.userId = ? ORDER BY ?? DESC, ?? DESC'
 
-    pool.query(wishListQuery, [userId, 'wishes.purchaseStatus', 'wishes.createDate'], function (err, wishes) {
+    pool.query(wishListQuery, [userId, 'wishes.createDate', 'wishes.purchaseStatus'], function (err, wishes) {
       if (err) return done(err)
       return done(null, wishes)
     })
