@@ -21,7 +21,7 @@
     <div class="form-row align-items-center">
       <div class="col-sm-12 col-md-3 mr-md-1 my-2">
         <label class="sr-only" for="description">Description</label>
-        <input type="text" class="form-control" id="description" name="description" placeholder="Description">
+        <input type="text" class="form-control" id="description" name="description" placeholder="Description" required>
       </div>
       <div class="col-sm-12 col-md-5 mr-md-1 my-2">
         <label class="sr-only" for="url">URL</label>
@@ -29,7 +29,7 @@
       </div>
       <div class="col-sm-12 col-md-2 mr-md-1 my-2">
         <label class="sr-only" for="price">Price</label>
-        <input type="text" class="form-control" id="price" name="price" placeholder="$9.99">
+        <input type="text" class="form-control" id="price" name="price" placeholder="$9.99" required>
       </div>
       <div class="col-auto my-2">
         <div class="form-check">
