@@ -85,7 +85,7 @@
   </div>        
   <div class="row">
   <div class="col-md-12">
-    <i class="fa-solid fa-caret-right" data-toggle="collapse" href="#oldWishes"></i><h5>2021</h5>
+    <i class="fa-solid fa-arrow-right" data-toggle="collapse" href="#oldWishes"></i><strong>2021</strong>
     {{#oldWishes}}
     <div id="oldWishes">
     <ul class="list-group">
