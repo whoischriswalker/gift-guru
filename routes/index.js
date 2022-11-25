@@ -7,12 +7,11 @@ router.get('/', isLoggedIn, (req, res) => {
   const user = req.user
   const message = req.flash('addItemMessage') || req.flash('removeItemMessage')
 
-  const wishData = items.getWishList(req.user.userId, function (err, wishes) {
+  items.getWishList(req.user.userId, function (err, wishes) {
     if (err) throw err
-    return wishes
+    let pageData = new fnPageData(user,wishes,message)
+    res.render('index', pageData)
   })
-  const pageData = new fnPageData(user,wishData,message)
-  res.render('index', pageData)
 })
 
 module.exports = router
