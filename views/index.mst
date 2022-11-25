@@ -81,11 +81,13 @@
     {{^wishes}}
     <h6>Use the form above to add items to your list!</h6>
     {{/wishes}}
+  </div>
   </div>        
   <div class="row">
   <div class="col-md-12">
     {{#oldWishes}}
-    <ul class="list-group">
+    <h4><i class="fa-solid fa-caret-right" data-toggle="collapse" href="#oldWishes"></i>2021</h4>
+    <ul class="list-group" id="oldWishes">
       <li class="list-group-item">
         <div class="media">
           {{#url}}
