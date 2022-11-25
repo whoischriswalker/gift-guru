@@ -7,14 +7,11 @@ router.get('/', isLoggedIn, (req, res) => {
   const user = req.user
   const message = req.flash('addItemMessage') || req.flash('removeItemMessage')
 
-  items.getWishList(req.user.userId, function (err, wishes) {
+  const wishData = items.getWishList(req.user.userId, function (err, wishes) {
     if (err) throw err
-    const pageData = new fnPageData(user,wishes,message)
+    return wishes
   })
-/*  const oldWishes = items.getWishListHistory(req.user.userId, function (err, oldWishes) {
-    if (err) throw err
-    return done(null,oldWishes)
-  })*/
+  const pageData = new fnPageData(user,wishData,message)
   res.render('index', pageData)
 })
 
