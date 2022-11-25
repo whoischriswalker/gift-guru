@@ -85,9 +85,10 @@
   </div>        
   <div class="row">
   <div class="col-md-12">
+    <i class="fa-solid fa-caret-right" data-toggle="collapse" href="#oldWishes"></i><h5>2021</h5>
     {{#oldWishes}}
-    <h4><i class="fa-solid fa-caret-right" data-toggle="collapse" href="#oldWishes"></i>2021</h4>
-    <ul class="list-group" id="oldWishes">
+    <div id="oldWishes">
+    <ul class="list-group">
       <li class="list-group-item">
         <div class="media">
           {{#url}}
@@ -114,7 +115,12 @@
         </div>
       </li>
     </ul>
+    </div>
     {{/oldWishes}}
+    {{^oldWishes}}
+    <h6>No wish list history available.</h6>
+    {{/oldWishes}}
+
   </div>     
   </div>
 </main>
