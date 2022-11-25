@@ -9,7 +9,7 @@ router.get('/', isLoggedIn, (req, res) => {
 
   items.getWishList(req.user.userId, function (err, wishes) {
     if (err) throw err
-    pageData = new fnPageData(user,wishes,message)
+    const pageData = new fnPageData(user,wishes,message)
   })
 /*  const oldWishes = items.getWishListHistory(req.user.userId, function (err, oldWishes) {
     if (err) throw err
