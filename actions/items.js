@@ -12,6 +12,14 @@ module.exports = {
       return done(null, wishes)
     })
   },
+  getWishListHistory: function (userId, done) {
+    var wishListQuery = 'SELECT items.desc, items.url, items.price, wishes.wishId, wishes.userId, IF(wishes.mustHave, TRUE, null) mustHave,  IF(wishes.purchaseStatus, TRUE, null) purchaseStatus, wishes.createDate FROM wishes INNER JOIN items ON wishes.itemId = items.itemId WHERE wishes.createDate LIKE "%2021%" AND wishes.userId = ? ORDER BY ?? DESC, ?? DESC'
+
+    pool.query(wishListQuery, [userId, 'wishes.createDate', 'wishes.purchaseStatus'], function (err, oldWishes) {
+      if (err) return done(err)
+      return done(null, oldWishes)
+    })
+  },
   addWish: function (userId, itemData, mustHave, done) {
     pool.query('INSERT INTO items SET ?', itemData, function (err, item) {
       if (err) return done(err, null, { message: 'Unable to add item!' })

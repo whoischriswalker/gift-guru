@@ -82,6 +82,38 @@
     <h6>Use the form above to add items to your list!</h6>
     {{/wishes}}
   </div>        
-</div>
+  <div class="row">
+  <div class="col-md-12">
+    {{#oldWishes}}
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="media">
+          {{#url}}
+          <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
+            <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/gift-64.png" alt="...">
+          </a>
+          <div class="media-body align-self-center col-md-11" style="flex: auto;">
+            <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
+              <h5 class="mt-0">{{desc}}</h5>
+            </a>
+          {{/url}}
+          {{^url}}
+          <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/gift-64.png" alt="...">
+          <div class="media-body align-self-center col-md-11" style="flex: auto;">
+            <h5 class="mt-0">{{desc}}</h5>
+          {{/url}}
+            <h6 class="mb-0">${{price}}</h6>
+          </div>
+          <div class="align-self-center col-md-1" style="flex: 1;">
+            <a style="color: black !important; text-decoration: none;" href="/items/remove/{{wishId}}">
+              <i class="far fa-trash-alt fa-fw fa-lg"></i>
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+    {{/oldWishes}}
+  </div>     
+  </div>
 </main>
 {{>footer}}

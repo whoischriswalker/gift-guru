@@ -1,17 +1,20 @@
 var express = require('express')
 var router = express.Router()
 var items = require('../actions/items')
+var pageData = {}
 
 router.get('/', isLoggedIn, (req, res) => {
-  items.getWishList(req.user.userId, function (err, result) {
+  items.getWishList(req.user.userId, function (err, wishes) {
     if (err) throw err
-    var pageData = {
-      user: req.user,
-      wishes: result,
-      message: req.flash('addItemMessage') || req.flash('removeItemMessage')
-    }
-    res.render('index', pageData)
+    pageData.user = req.user
+    pageData.wishes = wishes
+    pageData.message = req.flash('addItemMessage') || req.flash('removeItemMessage')
   })
+  items.getWishListHistory(req.user.userId, function (err, oldWishes) {
+    if (err) throw err
+    pageData.oldWishes = oldWishes
+  })
+  res.render('index', pageData)
 })
 
 module.exports = router
