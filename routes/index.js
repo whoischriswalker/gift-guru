@@ -16,11 +16,11 @@ router.get('/', isLoggedIn, (req, res) => {
 
   const wishes = items.getWishList(req.user.userId, function (err, wishes) {
     if (err) throw err
-    return wishes
+    return done(null,wishes)
   })
   const oldWishes = items.getWishListHistory(req.user.userId, function (err, oldWishes) {
     if (err) throw err
-    return oldWishes
+    return done(null,oldWishes)
   })
   const pageData = new fnPageData(user,wishes,oldWishes,message)
   res.render('index', pageData)
