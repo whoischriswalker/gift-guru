@@ -2,6 +2,7 @@ const { any } = require('bluebird')
 var express = require('express')
 var router = express.Router()
 var items = require('../actions/items')
+var pageData = {}
 
 router.get('/', isLoggedIn, (req, res) => {
   const user = req.user
@@ -9,7 +10,7 @@ router.get('/', isLoggedIn, (req, res) => {
 
   items.getWishList(req.user.userId, function (err, wishes) {
     if (err) throw err
-    let pageData = new fnPageData(user,wishes,message)
+    pageData = new fnPageData(user,wishes,message)
     res.render('index', pageData)
   })
 })

@@ -5,7 +5,7 @@ $(document).ready(function () {
   function validateForm () {
     var usernameRegex = /[^\w\.]/g
     var username = document.form['registerForm']['username'].value
-    var email = ocument.form['registerForm']['ea=mail'].value
+    var email = document.form['registerForm']['email'].value
     var pw1 = document.forms['registerForm']['password'].value
     var pw2 = document.forms['registerForm']['confirmPassword'].value
 
