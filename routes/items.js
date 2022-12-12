@@ -1,14 +1,26 @@
 var express = require('express')
 var router = express.Router()
 var items = require('../actions/items')
+const axios = require('axios')
+const cheerio = require('cheerio')
 
 router.post('/add', isLoggedIn, (req, res) => {
   const userId = req.user.userId
-  req.body.price = Number(req.body.price.replace(/[^0-9.-]+/g, ''))
-  const itemData = {
-    desc: req.body.description,
-    url: req.body.url,
-    price: req.body.price
+  if (req.body.description == null) {
+    const productDetails = getProductDetails(req.body.url)
+    productDetails.price = Number(productDetails.price.replace(/[^0-9.-]+/g, ''))
+    var itemData = {
+      desc: productDetails.description,
+      url: productDetails.url,
+      price: productDetails.price
+    }
+  } else {
+    req.body.price = Number(req.body.price.replace(/[^0-9.-]+/g, ''))
+    itemData = {
+      desc: req.body.description,
+      url: req.body.url,
+      price: req.body.price
+    }
   }
   const mustHave = req.body.mustHave
 
@@ -54,4 +66,35 @@ module.exports = router
 function isLoggedIn (req, res, next) {
   if (req.isAuthenticated()) { return next() }
   res.redirect('/login')
+}
+
+async function getProductDetails (url) {
+  // Make a GET request to the given URL
+  if (url.indexOf(' ') !== -1) {
+    url = url.split(/http(s)?/)[1]
+  } else {
+    let a = document.createElement('a')
+    a.href = url
+    let domain = a.hostname
+
+    const response = await axios.get(url)
+
+    // Use cheerio to parse the HTML and extract the product price and description
+    const $ = cheerio.load(response.data)
+    let priceElement = String
+    let descElement = String
+    switch (domain) {
+      case 'amazon.com':
+        priceElement = '#priceblock_ourprice'
+        descElement = '#productDescription'
+        var price = $(priceElement).text()
+        var description = $(descElement).text()
+        break
+
+      default:
+        break
+    }
+    // Return the product price and description
+    return ({ url, price, description })
+  }
 }

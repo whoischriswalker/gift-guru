@@ -22,4 +22,8 @@ $(document).ready(function () {
       return false
     }
   }
+
+  document.getElementById('addItemForm').addEventListener('paste', function () {
+    this.submit()
+  })
 })

@@ -1,7 +1,5 @@
 var mysql = require('mysql')
 var dbconfig = require('../config/database')
-const axios = require('axios')
-const cheerio = require('cheerio') 
 
 var pool = mysql.createPool(dbconfig.connection)
 
@@ -49,33 +47,5 @@ module.exports = {
       if (err) done(err, null, { message: 'Unable to mark wish as purchased!' })
       return done(null, 'Thank you for your purchase!', { message: 'Wish marked as purchased.' })
     })
-  },
-  getProductDetails: async function(url) {
-    // Make a GET request to the given URL
-    url = url.split(/http(s)?/)[1];
-
-    let a = document.createElement('a');
-    a.href = url;
-    let domain = a.hostname;
-    
-    const response = await axios.get(url);
-  
-    // Use cheerio to parse the HTML and extract the product price and description
-    const $ = cheerio.load(response.data);
-    let priceElement = any;
-    let descElement = any;
-    switch (domain) {
-       case 'amazon.com':
-          priceElement = '#priceblock_ourprice'
-          descElement = '#productDescription'
-          pageData.price = $(priceElement).text();
-          pageData.desc = $(descElement).text();
-          break;
-    
-       default:
-          break;
-    }
-    // Return the product price and description
-    //return { price, description };
   }
 }
