@@ -10,8 +10,11 @@ router.get('/', isLoggedIn, (req, res) => {
 
   items.getWishList(req.user.userId, function (err, wishes) {
     if (err) throw err
-    pageData = new fnPageData(user, wishes, message)
-    res.render('index', pageData)
+    items.getWishListHistory(req.user.userId, function (err, oldWishes) {
+      if (err) throw err    
+      pageData = new fnPageData(user, wishes, oldWishes, message)
+      res.render('index', pageData)
+    })
   })
 })
 
@@ -24,8 +27,9 @@ function isLoggedIn (req, res, next) {
 }
 
 // create pageData object for logged in user
-function fnPageData (user, wishes, message) {
+function fnPageData (user, wishes, oldWishes, message) {
   this.user = user
   this.wishes = wishes
   this.message = message
+  this.oldWishes = oldWishes
 }
