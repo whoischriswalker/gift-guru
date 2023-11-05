@@ -98,7 +98,7 @@
           <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#prevYear">
             <div class="accordion-body">
               {{#oldWishes}}
-              <ul class="list-group">
+              <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <div class="media">
                     {{#url}}
@@ -109,19 +109,15 @@
                       <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
                         <h5 class="mt-0">{{desc}}</h5>
                       </a>
+                    </div>
                     {{/url}}
                     {{^url}}
                     <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/gift-64.png" alt="...">
                     <div class="media-body align-self-center col-md-11" style="flex: auto;">
                       <h5 class="mt-0">{{desc}}</h5>
+                    </div>
                     {{/url}}
-                      <h6 class="mb-0">${{price}}</h6>
-                    </div>
-                    <div class="align-self-center col-md-1" style="flex: 1;">
-                      <a style="color: black !important; text-decoration: none;" href="/items/remove/{{wishId}}">
-                        <i class="far fa-trash-alt fa-fw fa-lg"></i>
-                      </a>
-                    </div>
+                    <h6 class="mb-0">${{price}}</h6>
                   </div>
                 </li>
               </ul>
