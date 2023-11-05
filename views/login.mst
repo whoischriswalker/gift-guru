@@ -8,12 +8,12 @@
       {{/message}}
       <!-- login form-->
       <form method="POST" action="/auth/login">
-        <div class="form-group">
-          <label for="username">Username</label>
+        <div class="mb-3 form-floating">
+          <label class="form-label" for="username">Username</label>
           <input class="form-control" id="username" type="text" name="username" required="required"/>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
+        <div class="mb-3 form-floating">
+          <label class="form-label" for="password">Password</label>
           <input class="form-control" id="password" type="password" name="password" required="required"/>
         </div>
         <button class="btn btn-primary" type="submit">Login</button>
