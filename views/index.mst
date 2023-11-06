@@ -91,7 +91,7 @@
       <div class="accordion accordion-flush" id="prevYear">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
             2022 Wishes
             </button>
           </h2>
@@ -101,12 +101,12 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   {{#url}}
-                    <a href="{{url}}" target="_blank">{{desc}}</a>
+                    <a href="{{url}}" class="link-dark" target="_blank">{{desc}}</a>
                   {{/url}}
                   {{^url}}
                     {{desc}}
                   {{/url}}
-                  <span class="badge bg-secondary rounded-pill">${{price}}</span>
+                  <span class="badge bg-dark rounded-pill">${{price}}</span>
                 </li>
               </ul>
               {{/oldWishes}}
