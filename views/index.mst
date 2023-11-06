@@ -82,7 +82,7 @@
   <div class="row">
     <div class="col">
       <h5>
-      2022 Wishes
+      Last Year (2022)
       </h5>
       {{#oldWishes}}
       <ul class="list-group list-group-flush">
