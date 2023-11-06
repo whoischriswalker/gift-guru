@@ -99,26 +99,16 @@
             <div class="accordion-body">
               {{#oldWishes}}
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class="media">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
                     {{#url}}
-                    <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
-                      <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/gift-64.png" alt="...">
-                    </a>
-                    <div class="media-body align-self-center col-md-11" style="flex: auto;">
-                      <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
-                        <h5 class="mt-0">{{desc}}</h5>
-                      </a>
-                    </div>
+                      <div class="fw-bold"><a href="{{url}}" target="_blank">{{desc}}</a></div>
                     {{/url}}
                     {{^url}}
-                    <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/gift-64.png" alt="...">
-                    <div class="media-body align-self-center col-md-11" style="flex: auto;">
-                      <h5 class="mt-0">{{desc}}</h5>
-                    </div>
+                      <div class="fw-bold">{{desc}}</div>
                     {{/url}}
-                    <h6 class="mb-0">${{price}}</h6>
                   </div>
+                  <span class="badge bg-primary rounded-pill">${{price}}</span>
                 </li>
               </ul>
               {{/oldWishes}}
