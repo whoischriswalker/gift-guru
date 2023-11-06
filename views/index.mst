@@ -18,7 +18,7 @@
   </div>
   <hr>
   <div class="row">
-    <div class="col-md-12" id="addItemForm">
+    <div class="col" id="addItemForm">
       <form method="POST" action="/items/add">
       <div class="form-row align-items-center">
         <div class="col-sm-12 col-md-3 mr-md-1 my-2">
@@ -53,19 +53,22 @@
     <div class="col">
       {{#wishes}}
         <ul class="list-group list-group-flush">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+        <li class="list-group-item d-flex justify-content-between align-items-start">
           {{#url}}
           <a href="{{url}}" class="link-dark" target="_blank">{{desc}}</a>
           {{/url}}
           {{^url}}
           {{desc}}
           {{/url}}
+          <div>
           <span class="badge bg-dark rounded-pill">
           ${{price}}
+          </span>
            <a style="color: black !important; text-decoration: none;" href="/items/remove/{{wishId}}">
               <i class="far fa-trash-alt fa-fw fa-lg"></i>
             </a>
           </span>
+          </div>
           </li>
         </ul>
       {{/wishes}}
