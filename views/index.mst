@@ -99,16 +99,14 @@
             <div class="accordion-body">
               {{#oldWishes}}
               <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    {{#url}}
-                      <div class="fw-bold"><a href="{{url}}" target="_blank">{{desc}}</a></div>
-                    {{/url}}
-                    {{^url}}
-                      <div class="fw-bold">{{desc}}</div>
-                    {{/url}}
-                  </div>
-                  <span class="badge bg-primary rounded-pill">${{price}}</span>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{#url}}
+                    <a href="{{url}}" target="_blank">{{desc}}</a>
+                  {{/url}}
+                  {{^url}}
+                    {{desc}}
+                  {{/url}}
+                  <span class="badge bg-secondary rounded-pill">${{price}}</span>
                 </li>
               </ul>
               {{/oldWishes}}
