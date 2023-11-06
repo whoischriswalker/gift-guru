@@ -56,23 +56,23 @@
         <li class="list-group-item d-flex justify-content-between align-items-start">
           {{#url}}
           <a href="{{url}}" class="link-dark" target="_blank">
-            <span class="d-inline-block text-truncate" style="max-width: 150px;">
+            <span class="d-inline-block text-truncate" style="max-width: 230px;">
             {{desc}}
             </span>
           </a>
           {{/url}}
           {{^url}}
-          <span class="d-inline-block text-truncate" style="max-width: 150px;">
+          <span class="d-inline-block text-truncate" style="max-width: 230px;">
             {{desc}}
           </span>
           {{/url}}
           <div>
             <span class="badge bg-dark rounded-pill">
               ${{price}}
+            </span>
               <a style="color: black !important; text-decoration: none;" href="/items/remove/{{wishId}}">
                 <i class="far fa-trash-alt fa-fw fa-lg"></i>
               </a>
-            </span>
           </div>
         </li>
         </ul>
@@ -94,13 +94,13 @@
         <li class="list-group-item d-flex justify-content-between align-items-start">
           {{#url}}
           <a href="{{url}}" class="link-dark" target="_blank">
-            <span class="d-inline-block text-truncate" style="max-width: 150px;">
+            <span class="d-inline-block text-truncate" style="max-width: 245px;">
               {{desc}}
             </span>
           </a>
           {{/url}}
           {{^url}}
-          <span class="d-inline-block text-truncate" style="max-width: 150px;">
+          <span class="d-inline-block text-truncate" style="max-width: 245px;">
             {{desc}}
           </span>
           {{/url}}
