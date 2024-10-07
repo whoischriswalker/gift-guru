@@ -1,7 +1,7 @@
 var express = require('express')
 var session = require('express-session')
 var MemoryStore = require('memorystore')(session)
-// var cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var path = require('path')
 var passport = require('passport')
@@ -30,7 +30,7 @@ app.set('view engine', 'mst')
 
 app.use(logger('dev'))
 app.use(express.static(path.join(__dirname, 'public')))
-// app.use(cookieParser())
+app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(session({
