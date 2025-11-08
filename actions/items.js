@@ -122,6 +122,15 @@ module.exports = {
                   t('[class*="price"]') || t('[id*="price"]') || t('[class*="amount"]') || ''
         }
 
+        // remove leading "Amazon.com" prefix if present
+        try {
+          if (host.indexOf('amazon.') !== -1 && typeof desc === 'string' && desc) {
+            desc = desc.replace(/^Amazon\.com\s*[:\-\—–]?\s*/i, '')
+          }
+        } catch (e) {
+          // no-op on unexpected errors
+        }
+
         // final sanitization/normalize
         if (typeof desc === 'string') desc = desc.replace(/\s+/g, ' ').trim()
         if (typeof price === 'string') price = extractPrice(price)
