@@ -52,26 +52,17 @@
   <div class="row">
       {{#wishes}}
         <ul class="list-group list-group-flush">
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-          {{#url}}
-          <a href="{{url}}" class="link-dark" target="_blank">
-            <span class="flex-grow-1 text-truncate me-2" style="min-width:0;">
-            {{desc}}
-            </span>
-          </a>
-          {{/url}}
-          {{^url}}
-          <span class="flex-grow-1 text-truncate me-2" style="min-width:0;">
-            {{desc}}
-          </span>
-          {{/url}}
-          <div>
-            <span class="badge bg-dark rounded-pill">
-              ${{price}}
-            </span>
-              <a style="color: black !important; text-decoration: none;" href="/items/remove/{{wishId}}">
-                <i class="far fa-trash-alt fa-fw fa-lg"></i>
-              </a>
+        <li class="list-group-item d-flex align-items-center">
+          <div class="me-2 flex-grow-1" style="min-width:0;">
+            {{#url}}
+            <a href="{{url}}" class="link-dark d-block text-truncate" target="_blank">{{desc}}</a>
+            {{/url}}
+            {{^url}}
+            <span class="d-block text-truncate">{{desc}}</span>
+            {{/url}}
+          </div>
+          <div class="d-flex align-items-center ms-2 flex-shrink-0">
+            <span class="badge bg-dark rounded-pill">${{price}}</span>
           </div>
         </li>
         </ul>
@@ -90,20 +81,18 @@
       </h5>
       {{#oldWishes}}
       <ul class="list-group list-group-flush">
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-          {{#url}}
-          <a href="{{url}}" class="link-dark" target="_blank">
-            <span class="flex-grow-1 text-truncate me-2" style="min-width:0;">
-              {{desc}}
-            </span>
-          </a>
-          {{/url}}
-          {{^url}}
-          <span class="flex-grow-1 text-truncate me-2" style="min-width:0;">
-            {{desc}}
-          </span>
-          {{/url}}
-          <span class="badge bg-dark rounded-pill">${{price}}</span>
+        <li class="list-group-item d-flex align-items-center">
+          <div class="me-2 flex-grow-1" style="min-width:0;">
+            {{#url}}
+            <a href="{{url}}" class="link-dark d-block text-truncate" target="_blank">{{desc}}</a>
+            {{/url}}
+            {{^url}}
+            <span class="d-block text-truncate">{{desc}}</span>
+            {{/url}}
+          </div>
+          <div class="d-flex align-items-center ms-2 flex-shrink-0">
+            <span class="badge bg-dark rounded-pill">${{price}}</span>
+          </div>
         </li>
       </ul>
       {{/oldWishes}}
