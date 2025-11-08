@@ -75,8 +75,8 @@ module.exports = {
         function extractPrice (str) {
           if (!str) return ''
           // common patterns: $12.34, £12, 12.34 USD, USD 12.34
-          var m = str.replace(/\u00A0/g, ' ').match(/([$€£¥]?[\d\.,]+(?:\s?[€£¥]|USD|USD)?)/i)
-          if (m) return m[1].trim()
+          //var m = str.replace(/\u00A0/g, ' ').match(/([$€£¥]?[\d\.,]+(?:\s?[€£¥]|USD|USD)?)/i)
+          //if (m) return m[1].trim()
           // fallback: digits only
           var m2 = str.match(/[\d\.,]+/)
           return m2 ? m2[0] : ''
@@ -92,7 +92,7 @@ module.exports = {
         try { host = new URL(url).hostname.toLowerCase() } catch (e) { host = '' }
 
         if (host.indexOf('amazon.') !== -1) {
-          desc = $('#productTitle').text().trim() || ogTitle || pageTitle || metaDesc || ''
+          desc = $('#productTitle').text().trim() || metaDesc || ogTitle || pageTitle || metaDesc || ''
           price = t('#priceblock_ourprice') || t('#priceblock_dealprice') || t('#priceblock_saleprice') ||
                   t('#priceblock_pospromoprice') || t('#newBuyBoxPrice') || t('#tp_price_block_total_price_ww') ||
                   t('[data-asin-price]') || t('[id*="price"]') || $('meta[name="price"]').attr('content') || ''
