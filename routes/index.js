@@ -2,7 +2,6 @@ const { any } = require('bluebird')
 var express = require('express')
 var router = express.Router()
 var items = require('../actions/items')
-var pageData = {}
 
 router.get('/', isLoggedIn, (req, res) => {
   const user = req.user
@@ -15,6 +14,20 @@ router.get('/', isLoggedIn, (req, res) => {
       pageData = new fnPageData(user, wishes, oldWishes, message)
       res.render('index', pageData)
     })
+  })
+})
+
+// new endpoint: fetch metadata for a provided URL
+router.post('/items/fetch-metadata', function (req, res) {
+  var url = req.body && req.body.url
+  if (!url) return res.status(400).json({ error: 'No URL provided' })
+
+  items.fetchItemMetadata(url, function (err, data) {
+    if (err) {
+      console.error('fetch-metadata error:', err && err.message)
+      return res.status(500).json({ error: 'Unable to fetch metadata' })
+    }
+    res.json(data)
   })
 })
 

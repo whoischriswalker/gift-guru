@@ -110,5 +110,48 @@
       {{/oldWishes}}
     </div>
   </div>
+
+  <!-- client script to auto-fill description & price from URL -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlInput = document.getElementById('url')
+    var descInput = document.getElementById('description')
+    var priceInput = document.getElementById('price')
+    var timer = null
+
+    function fetchMeta (value) {
+      if (!value) return
+      fetch('/items/fetch-metadata', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: value })
+      })
+      .then(function (res) { return res.json() })
+      .then(function (data) {
+        if (data.desc && !descInput.value) descInput.value = data.desc
+        if (data.price && !priceInput.value) priceInput.value = data.price
+      })
+      .catch(function (err) {
+        console.warn('metadata fetch failed', err)
+      })
+    }
+
+    // debounce input
+    urlInput.addEventListener('input', function (e) {
+      clearTimeout(timer)
+      var v = urlInput.value.trim()
+      if (!v) return
+      timer = setTimeout(function () { fetchMeta(v) }, 800)
+    })
+
+    // also try on blur
+    urlInput.addEventListener('blur', function () {
+      var v = urlInput.value.trim()
+      if (!v) return
+      fetchMeta(v)
+    })
+  })
+  </script>
+
 </main>
 {{>footer}}
