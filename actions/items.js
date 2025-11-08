@@ -71,15 +71,18 @@ module.exports = {
           var v = $(sel).first().text() || $(sel).first().attr('content') || ''
           return (v || '').toString().trim()
         }
-        // helper: extract currency+number
+        // helper: extract currency+number (avoid duplicated concatenated values like "50.5550.55")
         function extractPrice (str) {
           if (!str) return ''
-          // common patterns: $12.34, £12, 12.34 USD, USD 12.34
-          //var m = str.replace(/\u00A0/g, ' ').match(/([$€£¥]?[\d\.,]+(?:\s?[€£¥]|USD|USD)?)/i)
-          //if (m) return m[1].trim()
-          // fallback: digits only
-          var m2 = str.match(/[\d\.,]+/)
-          return m2 ? m2[0] : ''
+          str = str.replace(/\u00A0/g, ' ').trim()
+          // find first contiguous numeric group
+          var m = str.match(/[\d\.,]+/)
+          if (!m) return ''
+          var p = m[0]
+          // if the numeric string is an exact repetition (e.g. "50.5550.55"), collapse to single instance
+          var dup = p.match(/^([\d\.,]+)\1$/)
+          if (dup) return dup[1]
+          return p
         }
 
         // basic fallbacks (meta tags + title)
