@@ -63,28 +63,70 @@ module.exports = {
       .then(function (res) { return res.text() })
       .then(function (html) {
         var $ = cheerio.load(html)
-        var desc = $('meta[property="og:title"]').attr('content') ||
-                   $('meta[name="twitter:title"]').attr('content') ||
-                   $('meta[name="description"]').attr('content') ||
-                   $('title').text() || ''
+        var desc = ''
+        var price = ''
 
-        // try multiple selectors for price
-        var price = $('meta[property="product:price:amount"]').attr('content') ||
-                    $('meta[itemprop="price"]').attr('content') ||
-                    $('meta[name="price"]').attr('content') ||
-                    $('[itemprop=price]').attr('content') ||
-                    $('[class*="price"]').first().text() ||
-                    $('[id*="price"]').first().text() || ''
-
-        // sanitize numeric-like price (keep currency symbol and digits)
-        if (typeof price === 'string') {
-          price = price.trim()
-          // extract first currency + number group if possible
-          var m = price.match(/([$€£]?[\d\.,]+)/)
-          if (m) price = m[1]
+        // helper: normalize text
+        function t (sel) {
+          var v = $(sel).first().text() || $(sel).first().attr('content') || ''
+          return (v || '').toString().trim()
+        }
+        // helper: extract currency+number
+        function extractPrice (str) {
+          if (!str) return ''
+          // common patterns: $12.34, £12, 12.34 USD, USD 12.34
+          var m = str.replace(/\u00A0/g, ' ').match(/([$€£¥]?[\d\.,]+(?:\s?[€£¥]|USD|USD)?)/i)
+          if (m) return m[1].trim()
+          // fallback: digits only
+          var m2 = str.match(/[\d\.,]+/)
+          return m2 ? m2[0] : ''
         }
 
-        return done(null, { desc: desc.trim(), price: (price || '').toString().trim() })
+        // basic fallbacks (meta tags + title)
+        var ogTitle = $('meta[property="og:title"]').attr('content') || $('meta[name="twitter:title"]').attr('content')
+        var metaDesc = $('meta[name="description"]').attr('content')
+        var pageTitle = $('title').text()
+
+        // detect host to apply retailer-specific selectors
+        var host = ''
+        try { host = new URL(url).hostname.toLowerCase() } catch (e) { host = '' }
+
+        if (host.indexOf('amazon.') !== -1) {
+          desc = $('#productTitle').text().trim() || ogTitle || pageTitle || metaDesc || ''
+          price = t('#priceblock_ourprice') || t('#priceblock_dealprice') || t('#priceblock_saleprice') ||
+                  t('#priceblock_pospromoprice') || t('#newBuyBoxPrice') || t('#tp_price_block_total_price_ww') ||
+                  t('[data-asin-price]') || t('[id*="price"]') || $('meta[name="price"]').attr('content') || ''
+        } else if (host.indexOf('ebay.') !== -1) {
+          desc = $('#itemTitle').text().replace(/^Details about\s*/i, '').trim() || ogTitle || pageTitle || metaDesc || ''
+          price = t('#prcIsum') || t('#mm-saleDscPrc') || t('.notranslate') || t('[itemprop=price]') || ''
+        } else if (host.indexOf('walmart.') !== -1) {
+          desc = $('h1.prod-ProductTitle, h1[itemprop=name]').text().trim() || ogTitle || pageTitle || metaDesc || ''
+          // price may be split into characteristic/mantissa or in aria-label
+          price = t('span.price-characteristic') && t('span.price-mantissa') ? ('$' + t('span.price-characteristic') + '.' + t('span.price-mantissa')) :
+                  t('span[itemprop=price]') || t('.price-characteristic') || t('.price-group') || t('.price') || ''
+        } else if (host.indexOf('target.') !== -1) {
+          desc = $('h1[data-test="product-title"]').text().trim() || ogTitle || pageTitle || metaDesc || ''
+          price = t('span[data-test="product-price"]') || t('[data-test=price]') || t('[data-test="price"]') || t('.h-padding-r-tiny') || ''
+        } else if (host.indexOf('bestbuy.') !== -1) {
+          desc = $('.sku-title h1').text().trim() || ogTitle || pageTitle || metaDesc || ''
+          price = t('.priceView-hero-price .sr-only') || t('.priceView-customer-price span') || t('[itemprop=price]') || ''
+        } else if (host.indexOf('etsy.') !== -1) {
+          desc = $('h1[data-buy-box-listing-title], h1.single-title, h1[itemprop=name]').text().trim() || ogTitle || pageTitle || metaDesc || ''
+          price = t('p[data-buy-box-region] .currency-value') || t('.wt-text-title-03 .currency-value') || t('[data-test="price"]') || t('[itemprop=price]') || ''
+        } else {
+          // generic attempts
+          desc = ogTitle || $('meta[name="twitter:description"]').attr('content') || metaDesc || pageTitle || ''
+          price = $('meta[property="product:price:amount"]').attr('content') ||
+                  $('meta[itemprop="price"]').attr('content') ||
+                  $('[itemprop=price]').attr('content') ||
+                  t('[class*="price"]') || t('[id*="price"]') || t('[class*="amount"]') || ''
+        }
+
+        // final sanitization/normalize
+        if (typeof desc === 'string') desc = desc.replace(/\s+/g, ' ').trim()
+        if (typeof price === 'string') price = extractPrice(price)
+
+        return done(null, { desc: (desc || '').toString(), price: (price || '').toString() })
       })
       .catch(function (err) {
         return done(err)
