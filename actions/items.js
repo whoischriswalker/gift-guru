@@ -75,13 +75,19 @@ module.exports = {
         function extractPrice (str) {
           if (!str) return ''
           str = str.replace(/\u00A0/g, ' ').trim()
-          // find first contiguous numeric group
-          var m = str.match(/[\d\.,]+/)
+          // require at least one digit in the match (prevents matching standalone commas/dots)
+          var m = str.match(/([$€£¥]?\s*\d[\d\.,]*)/)
           if (!m) return ''
-          var p = m[0]
-          // if the numeric string is an exact repetition (e.g. "50.5550.55"), collapse to single instance
-          var dup = p.match(/^([\d\.,]+)\1$/)
-          if (dup) return dup[1]
+          var p = m[1].trim()
+          // strip any non-digit/dot/comma from ends
+          p = p.replace(/^[^\d\.,]+/, '').replace(/[^\d\.,]+$/, '')
+          // collapse exact repeated halves (e.g. "50.5550.55" -> "50.55")
+          var dup = p.match(/^(.+)\1$/)
+          if (dup) p = dup[1]
+          // remove stray leading/trailing punctuation
+          p = p.replace(/^[\.,]+/, '').replace(/[\.,]+$/, '')
+          // final safety: if no digit left, return empty
+          if (!p.match(/\d/)) return ''
           return p
         }
 
