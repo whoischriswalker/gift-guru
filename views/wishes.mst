@@ -44,7 +44,7 @@
             <!-- main text area: grows and truncates -->
             <div class="flex-grow-1 min-width-0">
               {{#url}}
-              <a href="{{url}}" target="_blank" class="d-block text-truncate" style="font-weight:600;">{{desc}}</a>
+              <a href="{{url}}" target="_blank" class="link-dark d-block text-truncate" style="font-weight:600;">{{desc}}</a>
               {{/url}}
               {{^url}}
               <div class="d-block text-truncate" style="font-weight:600;">{{desc}}</div>
@@ -63,10 +63,6 @@
                 <i class="fas fa-shopping-cart fa-fw fa-lg"></i>
               </a>
               {{/purchaseStatus}}
-
-              <a href="/items/remove/{{wishId}}" class="text-dark ms-2" title="Remove">
-                <i class="far fa-trash-alt fa-fw fa-lg"></i>
-              </a>
             </div>
           </div>
         </li>
