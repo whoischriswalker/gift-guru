@@ -18,46 +18,54 @@
       {{#wishes}}
       <ul class="list-group">
         <li class="list-group-item">
-          <div class="media">
-          {{#purchaseStatus}}
+          <div class="d-flex align-items-center">
+            <!-- image: fixed size, doesn't grow -->
             {{#url}}
-            <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
-              <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/purchased-64.png" alt="...">
-            </a>
-            {{/url}}
-            {{^url}}
-            <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/purchased-64.png" alt="...">
-            {{/url}}
-          {{/purchaseStatus}}
-          {{^purchaseStatus}}
-            {{#url}}
-            <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
-              <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/gift-64.png" alt="...">
-            </a>
-            {{/url}}
-            {{^url}}
-            <img class="align-self-center mr-3" style="max-width: 64px; max-height: 64px;" src="/images/gift-64.png" alt="...">
-            {{/url}}
-          {{/purchaseStatus}}
-            <div class="media-body align-self-center col-md-11" style="flex: auto;">
-          {{#url}}
-              <a style="color: black !important; text-decoration: none;" href={{url}} target="_blank">
-                <h5 class="mt-0">{{desc}}</h5>
-              </a>
-          {{/url}}
-          {{^url}}
-                <h5 class="mt-0">{{desc}}</h5>
-          {{/url}}
-              <h6 class="mb-0">${{price}}</h6>
-            </div>
-            <div class="align-self-center col-md-1" style="flex: 1;">
+            <a href="{{url}}" target="_blank" class="d-inline-block flex-shrink-0 me-3">
               {{#purchaseStatus}}
-              <i class="far fa-check-circle fa-fw fa-lg"></i>
+              <img src="/images/purchased-64.png" alt="" style="width:64px;height:64px;object-fit:contain;">
               {{/purchaseStatus}}
               {{^purchaseStatus}}
-              <a style="color: black !important; text-decoration: none;" href="/items/purchase/{{userId}}/{{wishId}}">
-                <i class="fas fa-shopping-cart fa-fw fa-lg"></i>
+              <img src="/images/gift-64.png" alt="" style="width:64px;height:64px;object-fit:contain;">
               {{/purchaseStatus}}
+            </a>
+            {{/url}}
+            {{^url}}
+            <div class="flex-shrink-0 me-3">
+              {{#purchaseStatus}}
+              <img src="/images/purchased-64.png" alt="" style="width:64px;height:64px;object-fit:contain;">
+              {{/purchaseStatus}}
+              {{^purchaseStatus}}
+              <img src="/images/gift-64.png" alt="" style="width:64px;height:64px;object-fit:contain;">
+              {{/purchaseStatus}}
+            </div>
+            {{/url}}
+
+            <!-- main text area: grows and truncates -->
+            <div class="flex-grow-1 min-width-0">
+              {{#url}}
+              <a href="{{url}}" target="_blank" class="d-block text-truncate" style="font-weight:600;">{{desc}}</a>
+              {{/url}}
+              {{^url}}
+              <div class="d-block text-truncate" style="font-weight:600;">{{desc}}</div>
+              {{/url}}
+            </div>
+
+            <!-- price + actions: do not wrap (stay on same line) -->
+            <div class="ms-3 text-nowrap d-flex align-items-center" style="gap:0.5rem;">
+              <span class="badge bg-dark rounded-pill">${{price}}</span>
+
+              {{#purchaseStatus}}
+              <i class="far fa-check-circle fa-fw fa-lg" title="Purchased"></i>
+              {{/purchaseStatus}}
+              {{^purchaseStatus}}
+              <a href="/items/purchase/{{userId}}/{{wishId}}" class="text-dark" title="Purchase">
+                <i class="fas fa-shopping-cart fa-fw fa-lg"></i>
+              </a>
+              {{/purchaseStatus}}
+
+              <a href="/items/remove/{{wishId}}" class="text-dark ms-2" title="Remove">
+                <i class="far fa-trash-alt fa-fw fa-lg"></i>
               </a>
             </div>
           </div>
