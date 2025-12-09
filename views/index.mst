@@ -63,6 +63,9 @@
           </div>
           <div class="d-flex align-items-center ms-2 flex-shrink-0">
             <span class="badge bg-dark rounded-pill">${{price}}</span>
+            <a class="link-dark" href="/items/remove/{{wishId}}">
+              <i class="far fa-trash-alt fa-fw fa-lg"></i>
+            </a>
           </div>
         </li>
         </ul>
@@ -92,9 +95,6 @@
           </div>
           <div class="d-flex align-items-center ms-2 flex-shrink-0">
             <span class="badge bg-dark rounded-pill">${{price}}</span>
-            <a class="link-dark" href="/items/remove/{{wishId}}">
-              <i class="far fa-trash-alt fa-fw fa-lg"></i>
-            </a>
           </div>
         </li>
       </ul>
