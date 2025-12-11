@@ -37,7 +37,7 @@ app.use(session({
   secret: 'hella-top-secret',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 86400000 },
+  cookie: { maxAge: 604800000 },
   store: new MemoryStore({
     checkPeriod: 86400000 // prune expired entries every 24h
   })

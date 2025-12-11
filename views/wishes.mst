@@ -17,11 +17,11 @@
     <div class="col-md-12">
       {{#wishes}}
       <ul class="list-group">
-        <li class="list-group-item">
+        <li class="list-group-item" style="overflow:hidden;">
           <div class="d-flex align-items-center">
             <!-- image: fixed size, doesn't grow -->
             {{#url}}
-            <a href="{{url}}" target="_blank" class="d-inline-block flex-shrink-0 me-3">
+            <a href="{{url}}" target="_blank" class="d-inline-block flex-shrink-0 me-3" style="width:64px;">
               {{#purchaseStatus}}
               <img src="/images/purchased-64.png" alt="" style="width:64px;height:64px;object-fit:contain;">
               {{/purchaseStatus}}
@@ -31,7 +31,7 @@
             </a>
             {{/url}}
             {{^url}}
-            <div class="flex-shrink-0 me-3">
+            <div class="flex-shrink-0 me-3" style="width:64px;">
               {{#purchaseStatus}}
               <img src="/images/purchased-64.png" alt="" style="width:64px;height:64px;object-fit:contain;">
               {{/purchaseStatus}}
@@ -42,17 +42,17 @@
             {{/url}}
 
             <!-- main text area: grows and truncates -->
-            <div class="flex-grow-1 min-width-0">
+            <div class="flex-grow-1" style="min-width:0;">
               {{#url}}
-              <a href="{{url}}" target="_blank" class="link-dark d-block text-truncate" style="font-weight:600;">{{desc}}</a>
+              <a href="{{url}}" target="_blank" class="link-dark d-block text-truncate me-2" style="font-weight:600;">{{desc}}</a>
               {{/url}}
               {{^url}}
-              <div class="d-block text-truncate" style="font-weight:600;">{{desc}}</div>
+              <div class="d-block text-truncate me-2" style="font-weight:600;">{{desc}}</div>
               {{/url}}
             </div>
 
             <!-- price + actions: do not wrap (stay on same line) -->
-            <div class="ms-3 text-nowrap d-flex align-items-center" style="gap:0.5rem;">
+            <div class="ms-3 d-flex align-items-center flex-shrink-0" style="gap:0.5rem; white-space:nowrap;">
               <span class="badge bg-dark rounded-pill">${{price}}</span>
 
               {{#purchaseStatus}}
@@ -63,6 +63,10 @@
                 <i class="fas fa-shopping-cart fa-fw fa-lg"></i>
               </a>
               {{/purchaseStatus}}
+
+              <a href="/items/remove/{{wishId}}" class="text-dark ms-2" title="Remove">
+                <i class="far fa-trash-alt fa-fw fa-lg"></i>
+              </a>
             </div>
           </div>
         </li>
