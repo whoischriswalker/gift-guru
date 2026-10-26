@@ -7,19 +7,24 @@ var pool = mysql.createPool(dbconfig.connection)
 var fetch = require('node-fetch')
 var cheerio = require('cheerio')
 
+function seasonStart (year) {
+  return year + '-10-01 00:00:00'
+}
+
 module.exports = {
   getWishList: function (userId, done) {
-    var wishListQuery = 'SELECT items.desc, items.url, items.price, wishes.wishId, wishes.userId, IF(wishes.mustHave, TRUE, null) mustHave,  IF(wishes.purchaseStatus, TRUE, null) purchaseStatus, wishes.createDate FROM wishes INNER JOIN items ON wishes.itemId = items.itemId WHERE wishes.createDate > "2025-10-01 00:00:00" AND wishes.userId = ? ORDER BY ?? DESC, ?? DESC'
+    var wishListQuery = 'SELECT items.desc, items.url, items.price, wishes.wishId, wishes.userId, IF(wishes.mustHave, TRUE, null) mustHave,  IF(wishes.purchaseStatus, TRUE, null) purchaseStatus, wishes.createDate FROM wishes INNER JOIN items ON wishes.itemId = items.itemId WHERE wishes.createDate >= ? AND wishes.userId = ? ORDER BY ?? DESC, ?? DESC'
 
-    pool.query(wishListQuery, [userId, 'wishes.createDate', 'wishes.purchaseStatus'], function (err, wishes) {
+    pool.query(wishListQuery, [seasonStart(new Date().getFullYear()), userId, 'wishes.createDate', 'wishes.purchaseStatus'], function (err, wishes) {
       if (err) return done(err)
       return done(null, wishes)
     })
   },
   getWishListHistory: function (userId, done) {
-    var wishListQuery = 'SELECT items.desc, items.url, items.price, wishes.wishId, wishes.userId, IF(wishes.mustHave, TRUE, null) mustHave,  IF(wishes.purchaseStatus, TRUE, null) purchaseStatus, wishes.createDate FROM wishes INNER JOIN items ON wishes.itemId = items.itemId WHERE wishes.createDate < "2025-10-01 00:00:00" AND wishes.createDate > "2024-01-01 00:00:00" AND wishes.userId = ? ORDER BY ?? DESC, ?? DESC'
+    var currentYear = new Date().getFullYear()
+    var wishListQuery = 'SELECT items.desc, items.url, items.price, wishes.wishId, wishes.userId, IF(wishes.mustHave, TRUE, null) mustHave,  IF(wishes.purchaseStatus, TRUE, null) purchaseStatus, wishes.createDate FROM wishes INNER JOIN items ON wishes.itemId = items.itemId WHERE wishes.createDate >= ? AND wishes.createDate < ? AND wishes.userId = ? ORDER BY ?? DESC, ?? DESC'
 
-    pool.query(wishListQuery, [userId, 'wishes.createDate', 'wishes.purchaseStatus'], function (err, oldWishes) {
+    pool.query(wishListQuery, [seasonStart(currentYear - 1), seasonStart(currentYear), userId, 'wishes.createDate', 'wishes.purchaseStatus'], function (err, oldWishes) {
       if (err) return done(err)
       return done(null, oldWishes)
     })

@@ -5,13 +5,14 @@ var items = require('../actions/items')
 
 router.get('/', isLoggedIn, (req, res) => {
   const user = req.user
+  const lastYear = new Date().getFullYear() - 1
   const message = req.flash('addItemMessage') || req.flash('removeItemMessage')
 
   items.getWishList(req.user.userId, function (err, wishes) {
     if (err) throw err
     items.getWishListHistory(req.user.userId, function (err, oldWishes) {
       if (err) throw err    
-      pageData = new fnPageData(user, wishes, oldWishes, message)
+      var pageData = new fnPageData(user, wishes, oldWishes, message, lastYear)
       res.render('index', pageData)
     })
   })
@@ -40,9 +41,10 @@ function isLoggedIn (req, res, next) {
 }
 
 // create pageData object for logged in user
-function fnPageData (user, wishes, oldWishes, message) {
+function fnPageData (user, wishes, oldWishes, message, lastYear) {
   this.user = user
   this.wishes = wishes
   this.message = message
   this.oldWishes = oldWishes
+  this.lastYear = lastYear
 }
